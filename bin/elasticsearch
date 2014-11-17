@@ -1,0 +1,36 @@
+var db = require('config/db');
+var mongoose = require('mongoose');
+
+db('mongodb://localhost/rocks', function () {
+    var Artist = mongoose.model('artist');
+    var Album = mongoose.model('album');
+    var Track = mongoose.model('track');
+    var stream = Album.synchronize();
+    var stren = Artist.synchronize();
+    var count = 0;
+
+    stream.on('data', function (err, doc) {
+        count++;
+    });
+
+    stream.on('close', function () {
+        console.log('indexed '+ count +' albums');
+    });
+
+    stream.on('error', function (err) {
+        console.log(err);
+    });
+
+
+    stren.on('data', function (err, doc) {
+        count++;
+    });
+
+    stren.on('close', function () {
+        console.log('indexed '+ count +' albums');
+    });
+
+    stren.on('error', function (err) {
+        console.log(err);
+    });
+});

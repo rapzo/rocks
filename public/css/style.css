@@ -1,0 +1,586 @@
+/*
+Template: InTime
+Author: Just Good Themes, http://justgoodthemes.com/
+Version: 1.1
+*/
+
+/*
+Colors:
+#ffffff, rgb(255,255,255)
+#f7f7f7, rgb(247,247,247)
+#dadada, rgb(218,218,218)
+#a9a9a9, rgb(169,169,169)
+#6e6e6e, rgb(110,110,110)
+#474747, rgb(71,71,71)
+#1f1f1f, rgb(31,31,31)
+#73ba37, rgb(115,186,55) - green
+*/
+
+
+
+#demo{
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+	background-color: rgba(255,255,255,0.15);
+}
+
+
+body{
+
+  background-image: url('../assets/abstract.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+
+}
+
+
+/* Reset
+-------------------------------------------------*/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html,
+button,
+input,
+textarea {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  color: #dadada;
+  line-height: 1.75;
+  margin: 0;
+}
+
+a {
+  color: #dadada;
+  text-decoration: underline;
+}
+
+a:active,
+a:focus,
+a:hover {
+  outline: 0;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #fff;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  line-height: 1.16667;
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+p {
+  margin: 0 0 28px;
+}
+
+ul,
+ol {
+  margin: 0 0 28px;
+  padding: 0 0 0 24px;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
+}
+
+form {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  border-radius: 0;
+  font-size: 14px;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: baseline;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:  border-box;
+  box-sizing:     border-box;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+button,
+input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* General styles (grid, forms, common classes, etc)
+-------------------------------------------------*/
+/* Clearing floats */
+.row:after { 
+  clear: both; 
+}
+
+.row:before,.row:after { 
+  content: ""; 
+  display: table; 
+}
+
+/* Assistive text */
+.screen-reader-text {
+  border: 0 none;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+}
+
+/* Grid */
+.row {
+  margin-left: -48px;
+}
+
+.one-half {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:  border-box;
+  box-sizing:     border-box;
+  float: left;
+  padding-left: 48px;
+}
+
+.one-half {
+  width: 50%;
+}
+
+/* Forms */
+input,
+textarea {
+  background: #6e6e6e;
+  background: rgba(169,169,169,0.3);
+  border: 1px solid #6e6e6e;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 12px;
+  text-transform: uppercase;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+button,
+input[type="button"] {
+  background: #73ba37;
+  background: rgba(115,186,55,0.8);
+  -webkit-transition: all 0.3s;
+  -moz-transition:  all 0.3s;
+  transition:     all 0.3s;
+}
+
+button:hover,
+button:focus,
+input[type="button"]:focus,
+input[type="button"]:hover {
+  background: #73ba37;
+  color: #dadada;
+  outline: 0;
+}
+
+.form-field {
+  position: relative;
+}
+
+.form-field label {
+  font-size: 14px;
+}
+
+.form-field span.error {
+  background: #73ba37;
+  background: rgba(115,186,55,0.8);
+  border: 1px solid #73ba37;
+  color: #f7f7f7;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 6px;
+  position: absolute;
+  right: 6px; 
+  text-transform: uppercase;
+  top: -14px;
+}
+
+.form-wrap .loading {
+  height: 42px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.form-wrap .success {
+  color: #dadada;
+  font-family: 'Roboto Slab', serif;
+  min-height: 42px;
+  text-align: center;
+}
+
+/* Placeholder text color */
+::-webkit-input-placeholder {
+  color: #a9a9a9;
+}
+
+::-moz-placeholder {
+  color: #a9a9a9;
+  opacity: 1;
+}
+
+.placeholder {
+  color: #a9a9a9;
+}
+
+/* Responsive images */
+.content img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* Custom text styles */
+.subtitle {
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: 28px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.row h2 {
+  font-size: 24px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+#modal .section-title {
+  margin-bottom: 42px;
+}
+
+
+
+
+/* Basic Structure
+-------------------------------------------------*/
+.wrap {
+  min-height: 100%;
+  position: relative;
+}
+
+.inner {
+  margin: 0 auto;
+  padding: 42px 24px;
+}
+
+#main {
+  position: relative;
+}
+
+#main .inner {
+  max-width: 816px;
+  padding-bottom: 126px;
+  padding-top: 84px;
+}
+
+#modal {
+  background: #1f1f1f;
+  background: rgba(31,31,31,0.8);
+  display: none;
+  left: 0;
+  min-height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 997;
+}
+
+#modal .inner {
+  max-width: 612px;
+}
+
+
+/* Main
+-------------------------------------------------*/
+/* Header */
+.site-title {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+/* Countdown */
+.countdown-row {
+  display: block;
+  text-align: center;
+}
+
+.countdown-section {
+  border-left: 1px dotted #dadada;
+  border-color: rgba(218,218,218,0.8);
+  color: #dadada;
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 42px 12px 28px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 25%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:  border-box;
+  box-sizing:     border-box;
+}
+
+.countdown-section:first-child {  
+  border-left: 0;
+}
+
+.countdown-amount {
+  color: #fff;
+  display: block;
+  font-family: 'Roboto Slab', serif;
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1;
+  padding-bottom: 21px;
+}
+
+/* search */
+#search {
+  margin: 0 auto;
+  max-width: 588px; 
+}
+
+#search-form {
+  position: relative;
+}
+
+#search-form .form-field {
+  margin-right: 180px;
+}
+
+#search-form .form-submit {
+  height: 42px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 180px;
+}
+
+#search_input,
+#search_submit {
+  display: block;
+  height: 42px;
+  width: 100%;
+}
+
+#search_input {
+  border-right: 0;
+}
+
+/* Social */
+.social {
+  margin: 28px 0;
+}
+
+.social ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.social li {
+  display: inline-block;
+  margin: 4px;
+}
+
+/* Modal toggle */
+#main .modal-toggle {
+  bottom: 42px;
+  height: 42px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.modal-note {
+  color: #dadada;
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Modal page: About Us
+-------------------------------------------------*/
+/* Modal toggle */
+#modal .modal-toggle {
+  margin-bottom: 42px;
+  text-align: center;
+}
+
+/* No JS
+-------------------------------------------------*/
+.no-js #timer,
+.no-js .modal-toggle,
+.no-js #preload {
+  display: none;
+}
+
+/* Media Queries
+-------------------------------------------------*/
+@media only screen and (max-width: 680px) {
+  h1 {
+    font-size: 36px;
+  }
+  .countdown-amount {
+    font-size: 48px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .one-half {
+    width: 100%;
+  } 
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 30px;
+  }
+  .countdown-section {
+    padding: 28px 6px 28px;
+  }
+  .countdown-amount {
+    font-size: 42px;
+  }
+  #search-form .form-field {
+    margin: 0 0 14px;
+  }
+  #search-form .form-submit {
+    margin: 0 auto;
+    position: static;
+    right: auto;
+    top: auto;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .countdown-section {
+    font-size: 10px;
+    padding: 21px 6px;
+  }
+  .countdown-amount {
+    font-size: 36px;
+  }
+}
