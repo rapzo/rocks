@@ -1,0 +1,143 @@
+#!/usr/bin/env node
+
+var mongoose = require('mongoose');
+var db = require('config/db');
+var SPOTIFY = require('config/api').get('spotify');
+var Spotify = require('spotify-web-api-node');
+var debug = require('debug')('rocks');
+
+
+var keywords = [
+    'beautiful', 'love', 'peace', 'amor', 'eyes', 'melhor',
+    'stars', 'fire', 'up', 'need', 'call', 'say', 'dance', 'bang',
+    'death', 'blood', 'cage', 'white', 'black', 'blue', 'jazz',
+    'rock', 'symphony', 'rage', 'red', 'heavy', 'wolf'
+];
+
+
+db('mongodb://localhost/rocks', function () {
+    var Artist = mongoose.model('artist');
+    var Album = mongoose.model('album');
+    var Track = mongoose.model('track');
+
+
+    var api = new Spotify({
+        clientId : SPOTIFY.CLIENT_ID,
+        clientSecret : SPOTIFY.CLIENT_SECRET
+    });
+
+    /**
+     * Traverse the artists' list and saves it to the database
+     * @param  {Array} artists Artists fetched from Spotify
+     * @return {null}         Nothin'
+     */
+    function save_artists(artists) {
+        var artist;
+
+        artists.forEach(function (item) {
+            artist = new Artist();
+            artist.set(item);
+            artist.set('spotify_id', item.id);
+
+            artist.save(function (err, done) {
+                if (err) return console.log(err);
+
+                debug(artist.get('spotify_id') + ' artist saved');
+                search_top_tracks(item.id);
+            });
+        });
+    }
+
+    function save_album(track) {
+        var a = new Album();
+        var ids;
+
+        a.set(track.album);
+        a.set('spotify_id', track.album.id);
+
+        var ids = track.artists.map(function (artist) {
+            return artist.id;
+        });
+
+        a.set('spotify_artists_ids', ids);
+
+        a.save(function (err, done) {
+            if (err) return console.log(err);
+
+            debug(a.get('spotify_id') + ' album saved');
+        });
+    }
+
+    function save_track(track) {
+        var t = new Track();
+
+        t.set('spotify_id', track.id);
+        t.set('spotify_album_id', track.album.id);
+
+        var ids = track.artists.map(function (a) {
+            return a.id;
+        });
+        t.set('spotify_artists_ids', ids);
+        console.log(ids);
+
+        delete track.album;
+        delete track.artists;
+
+        t.set(track);
+
+        t.save(function (err, done) {
+            if (err) return console.log(err);
+
+            debug(t.get('spotify_id') + ' track saved');
+        });
+    }
+
+    function error(msg) {
+        debug(msg);
+    }
+
+    function search_chain(key, offset, cb) {
+        api.searchArtists(key)
+            .then(function (data) {
+                var total = data.artists.total || 0;
+                var limit = data.artists.limit || 0;
+
+                save_artists(data.artists.items);
+
+                offset += 1;
+
+                if ((offset * limit) <= total) {
+                    console.log('writting '+ offset +' of '+ total +' ('+ (offset * limit) +')');
+
+                    setTimeout(function () {
+                        search_chain(key, offset, cb);
+                    }, 1000);
+                } else cb();
+            })
+            .catch(error);
+    }
+
+    function search_top_tracks(id) {
+        setTimeout(function () {
+            api.getArtistTopTracks(id, 'PT')
+                .then(function (data) {
+                    console.log('working on top tracks')
+
+                    data.tracks.forEach(function (track) {
+                        save_album(track);
+                        save_track(track);
+                    });
+                }, debug);
+        }, 500);
+    }
+
+    keywords.forEach(function (key) {
+        setTimeout(function () {
+            console.log('Booting up word `'+ key +'`');
+
+            search_chain(key, 0, function () {
+                console.log('all done with `'+ key +'`');
+            });
+        }, 500);
+    });
+});

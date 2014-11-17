@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+var mongoose = require('mongoose');
+var Sacador = require('lib/sacador');
+var db = require('config/db');
+var SPOTIFY = require('config/api').get('spotify');
+var Spotify = require('spotify-web-api-node');
+var debug = require('debug')('rocks');
+
+
+
+// sac.song(
+//   'white stripes', 'seven nation army', ['id:lyricfind-US'],
+//   function (err, data) {
+//     if (err) return console.log(err);
+//
+//     data.forEach(function (item) {
+//       console.log(item)
+//
+//       item.artist_foreign_ids.forEach(function (id) {
+//         sac.lyrics(id.foreign_id, function (err, data) {
+//             if (err) console.log(err);
+//             else console.log(data);
+//         });
+//       })
+//     })
+//   }
+// );
+
+
+db('mongodb://localhost/rocks', function () {
+    var sac = Sacador();
+    var Artist = mongoose.model('artist');
+
+    Artist.find({}, function (err, docs) {
+        if (err) return debug(err);
+
+        docs.forEach(operate_artist);
+    });
+
+    function operate_artist(artist, index) {
+        setTimeout(function () {
+            console.log('working on '+ artist.get('spotify_id') +' bio');
+            sac.bios(artist.get('spotify_id'), ['id:spotify'], function (err, bio) {
+                if (err) return debug(err);
+
+                if (bio) {
+                    bio.forEach(function (b) {
+                        if (b.site.toLowerCase() === 'wikipedia') {
+                            artist.set('bio', b.text);
+                            artist.save(success);
+                        }
+                    })
+                } else debug('No bio');
+            });
+        }, index * 500);
+    }
+
+    function success(err, result) {
+        if (err) return debug(err);
+        debug(result.get('spotify_id') +' updated with bio');
+    }
+
+    function error(err) {
+        debug(err);
+    }
+
+});

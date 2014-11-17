@@ -1,7 +1,38 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
+        title Spotify on the Rocks/title
+        meta(name="description", content="Search songs on Spotify")
+
+        link(href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic|Roboto+Slab:400,700", rel="stylesheet", type="text/css")
+        link(rel="stylesheet", type="text/css", media="all", href="css/style.css")
+
+    body
+        .wrap
+
+            #main
+                .inner
+                    header.site-header
+                        h1.site-title.fade-in
+                            img(src="assets/wave.png", height="200", alt="search")
+
+                    section.content
+
+                        h1.section-title Spotify on the Rocks
+                        p.subtitleSearch for songs and lyrics
+
+                        block content
+
+                        div(id="search", class="form-wrap")
+                            form(action="", method="post", id="search-form")
+                                p.form-field
+                                    input(type="text", name="search_email", id="search_input", value="", placeholder="Songs you want to search here")
+
+                                p.form-submit
+                                    input(type="button", name="search_submit", id="search_submit", value="Search", onclick="myFunction()")
+                        #search-results
+
+        script(type="text/javascript", src="js/jquery-2.1.1.min.js")
+        script(type="text/javascript", src="js/script.js")
