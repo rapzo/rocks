@@ -1,0 +1,5 @@
+extends layout
+
+block content
+    each hit in results.hits.hits
+        p= hit._source.name

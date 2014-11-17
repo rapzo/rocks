@@ -26,13 +26,12 @@ html
                         block content
 
                         div(id="search", class="form-wrap")
-                            form(action="", method="post", id="search-form")
+                            form(action="/search", method="post", id="search-form", name="search_form")
                                 p.form-field
-                                    input(type="text", name="search_email", id="search_input", value="", placeholder="Songs you want to search here")
+                                    input(type="text", name="query", id="search_input", value="", placeholder="Songs you want to search here")
 
                                 p.form-submit
-                                    input(type="button", name="search_submit", id="search_submit", value="Search", onclick="myFunction()")
+                                    input(type="submit", name="search_submit", id="search_submit", value="Search")
                         #search-results
 
         script(type="text/javascript", src="js/jquery-2.1.1.min.js")
-        script(type="text/javascript", src="js/script.js")
